@@ -6,7 +6,6 @@ import ru.practicum.shareit.item.service.IItemService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 
 @RestController
@@ -24,12 +23,12 @@ public class ItemController {
     }
 
     @PatchMapping("/{id}")
-    public Item update (@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id, @RequestBody Item item) {
+    public Item update(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id, @RequestBody Item item) {
         return iItemService.update(userId, id, item);
     }
 
     @GetMapping("/{id}")
-    public Item getByItemId (@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id) {
+    public Item getByItemId(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id) {
         return iItemService.getById(userId, id);
     }
 

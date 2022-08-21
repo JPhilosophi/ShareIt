@@ -20,6 +20,6 @@ public class User {
 
 
     public void getNextId() {
-       id = count++;
+        id = count++;
     }
 }

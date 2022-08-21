@@ -12,10 +12,11 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    private ErrorResponse duplicateError (final DuplicateError e) {
+    private ErrorResponse duplicateError(final DuplicateError e) {
         log.error("Error: duplicate data");
         return new ErrorResponse("Error: duplicate data");
     }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     private ErrorResponse handleObjectException(final BadRequestException e) {

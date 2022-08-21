@@ -7,15 +7,14 @@ import ru.practicum.shareit.item.dto.IItemDto;
 import ru.practicum.shareit.item.model.Item;
 
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 
 @Slf4j
 @Service
-public class ItemService implements IItemService{
+public class ItemService implements IItemService {
     private final IItemDto iItemDto;
 
-    public ItemService(@Qualifier("memoryItem")IItemDto iItemDto) {
+    public ItemService(@Qualifier("memoryItem") IItemDto iItemDto) {
         this.iItemDto = iItemDto;
     }
 

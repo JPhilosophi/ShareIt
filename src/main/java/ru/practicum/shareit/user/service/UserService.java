@@ -38,7 +38,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void delete(Long id) {userStorage.delete(id);}
+    public void delete(Long id) {
+        userStorage.delete(id);
+    }
 
     @Override
     public void userVerification(User user) {

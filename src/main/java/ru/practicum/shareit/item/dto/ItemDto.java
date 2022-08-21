@@ -9,9 +9,6 @@ import ru.practicum.shareit.user.dto.IUserDto;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * // TODO .
- */
 @Component("memoryItem")
 public class ItemDto implements IItemDto {
     private final Map<Long, HashSet<Item>> userItems = new HashMap<>();

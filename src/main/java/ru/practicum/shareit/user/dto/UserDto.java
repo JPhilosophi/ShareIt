@@ -62,7 +62,8 @@ public class UserDto implements IUserDto {
     public Map<Long, User> checkUserInStorage() {
         return users;
     }
-    private void checkDuplicate(User user){
+
+    private void checkDuplicate(User user) {
         if (users.values().stream().anyMatch(user1 -> user.getEmail().equals(user1.getEmail()))) {
             throw new DuplicateError("Email mast by unique");
         }

@@ -3,13 +3,12 @@ package ru.practicum.shareit.item.dto;
 import ru.practicum.shareit.item.model.Item;
 
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 
 public interface IItemDto {
     Item create(Long id, Item item);
 
-    Item update (Long userId, Long itemId, Item item);
+    Item update(Long userId, Long itemId, Item item);
 
     List<Item> get(Long userId);
 
