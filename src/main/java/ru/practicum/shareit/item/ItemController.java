@@ -11,35 +11,35 @@ import java.util.TreeSet;
 @RestController
 @RequestMapping("/items")
 public class ItemController {
-    private final IItemService iItemService;
+    private final IItemService itemService;
 
     public ItemController(IItemService iItemService) {
-        this.iItemService = iItemService;
+        this.itemService = iItemService;
     }
 
     @PostMapping
     public Item create(@Valid @RequestBody Item item, @RequestHeader("X-Sharer-User-Id") Long id) {
-        return iItemService.create(id, item);
+        return itemService.create(id, item);
     }
 
     @PatchMapping("/{id}")
     public Item update(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id, @RequestBody Item item) {
-        return iItemService.update(userId, id, item);
+        return itemService.update(userId, id, item);
     }
 
     @GetMapping("/{id}")
     public Item getByItemId(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id) {
-        return iItemService.getById(userId, id);
+        return itemService.getById(userId, id);
     }
 
     @GetMapping()
     public List<Item> getAllItems(@RequestHeader("X-Sharer-User-Id") Long userId) {
-        return iItemService.get(userId);
+        return itemService.get(userId);
     }
 
     @GetMapping("/search")
     public TreeSet<Item> search(@RequestHeader("X-Sharer-User-Id") Long userId, @RequestParam String text) {
-        return iItemService.search(userId, text);
+        return itemService.search(userId, text);
     }
 }
 
