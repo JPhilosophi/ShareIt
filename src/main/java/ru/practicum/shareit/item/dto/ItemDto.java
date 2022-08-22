@@ -96,16 +96,20 @@ public class ItemDto implements IItemDto {
         }
         for (HashSet<Item> items : userItems.values()) {
             for (Item item : items) {
-                List<String> names = List.of(item.getName().split(" "));
-                for (String name : names) {
-                    if (name.toLowerCase().contains(text.toLowerCase())) {
-                        result.add(item);
+                if (!item.getAvailable()) {
+                    continue;
+                } else {
+                    List<String> names = List.of(item.getName().split(" "));
+                    for (String name : names) {
+                        if (name.toLowerCase().contains(text.toLowerCase())) {
+                            result.add(item);
+                        }
                     }
-                }
-                List<String> descriptions = List.of(item.getDescription().split(" "));
-                for (String description : descriptions) {
-                    if (description.toLowerCase().contains(text.toLowerCase())) {
-                        result.add(item);
+                    List<String> descriptions = List.of(item.getDescription().split(" "));
+                    for (String description : descriptions) {
+                        if (description.toLowerCase().contains(text.toLowerCase())) {
+                            result.add(item);
+                        }
                     }
                 }
             }
