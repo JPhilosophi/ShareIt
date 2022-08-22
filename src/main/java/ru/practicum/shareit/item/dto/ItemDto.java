@@ -78,12 +78,10 @@ public class ItemDto implements IItemDto {
 
     @Override
     public Item getById(Long userId, Long id) {
-        if (userItems.containsKey(userId)) {
-            for (HashSet<Item> itemSet : userItems.values()) {
-                for (Item i : itemSet) {
-                    if (i.getId().equals(id)) {
-                        return i;
-                    }
+        for (HashSet<Item> items : userItems.values()) {
+            for (Item item : items) {
+                if (item.getId().equals(id)) {
+                    return item;
                 }
             }
         }
