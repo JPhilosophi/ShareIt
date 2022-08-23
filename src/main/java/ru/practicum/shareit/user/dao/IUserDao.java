@@ -1,11 +1,11 @@
-package ru.practicum.shareit.user.dto;
+package ru.practicum.shareit.user.dao;
 
 import ru.practicum.shareit.user.model.User;
 
 import java.util.List;
 import java.util.Map;
 
-public interface IUserDto {
+public interface IUserDao {
 
     User create(User user);
 

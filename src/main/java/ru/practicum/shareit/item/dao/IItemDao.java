@@ -1,11 +1,11 @@
-package ru.practicum.shareit.item.dto;
+package ru.practicum.shareit.item.dao;
 
 import ru.practicum.shareit.item.model.Item;
 
 import java.util.List;
 import java.util.TreeSet;
 
-public interface IItemDto {
+public interface IItemDao {
     Item create(Long id, Item item);
 
     Item update(Long userId, Long itemId, Item item);

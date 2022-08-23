@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.model;
 
 import lombok.Data;
+import ru.practicum.shareit.requests.model.ItemRequest;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,9 +18,19 @@ public class Item {
     @NotEmpty(message = "Description can't be empty")
     private String description;
     private Boolean available;
+    private Long owner;
+    private ItemRequest request;
 
 
     public void getNextId() {
         id = count++;
+    }
+
+    public ItemRequest getRequest() {
+        return request;
+    }
+
+    public Boolean isAvailable() {
+        return available;
     }
 }

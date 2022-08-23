@@ -3,7 +3,7 @@ package ru.practicum.shareit.user.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.user.dto.IUserDto;
+import ru.practicum.shareit.user.dao.IUserDao;
 import ru.practicum.shareit.user.model.User;
 
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
 @Slf4j
 @Service
 public class UserService implements IUserService {
-    private final IUserDto userStorage;
+    private final IUserDao userStorage;
 
-    public UserService(@Qualifier("memoryUser") IUserDto userStorage) {
+    public UserService(@Qualifier("memoryUser") IUserDao userStorage) {
         this.userStorage = userStorage;
     }
 

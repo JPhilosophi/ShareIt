@@ -23,7 +23,7 @@ public class ItemController {
     }
 
     @PatchMapping("/{id}")
-    public Item update(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id, @RequestBody Item item) {
+    public Item update(@Valid @RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id, @RequestBody Item item) {
         return itemService.update(userId, id, item);
     }
 
