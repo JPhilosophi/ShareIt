@@ -1,9 +1,7 @@
 package ru.practicum.shareit.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.user.service.IUserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -11,35 +9,34 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
-    private final IUserService userService;
+    private final UserService UserService;
 
-    @Autowired
-    public UserController(IUserService iUserService) {
-        userService = iUserService;
+    public UserController(@Qualifier("UserRepository") UserService userService) {
+        UserService = userService;
     }
 
     @PostMapping
-    public User create(@Valid @RequestBody User user) {
-        return userService.create(user);
+    public UserDto create(@Valid @RequestBody UserDto user) {
+        return UserService.create(user);
     }
 
     @PatchMapping("/{id}")
-    public User update(@RequestBody User user, @PathVariable Long id) {
-        return userService.update(id, user);
+    public UserDto update(@RequestBody UserDto user, @PathVariable Long id) {
+        return UserService.update(id, user);
     }
 
     @GetMapping
-    public List<User> getAll() {
-        return userService.getUsers();
+    public List<UserDto> getAll() {
+        return UserService.getUsers();
     }
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable Long id) {
-        return userService.get(id);
+    public UserDto getById(@PathVariable Long id) {
+        return UserService.get(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
-        userService.delete(id);
+        UserService.delete(id);
     }
 }
