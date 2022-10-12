@@ -125,7 +125,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         UserEntity userEntity = userRepository.findById(userId).orElseThrow();
-        List<BookingEntity> bookings = bookingRepository.findAllByBooker_idOrderByStartDesc(userEntity.getId());
+        List<BookingEntity> bookings = bookingRepository.findAllByBookerIdOrderByStartDesc(userEntity.getId());
         List<BookingEntity> bookingEntityList = getBookingsByState(state, bookings);
         List<BookingOutputDto> result = new ArrayList<>();
 
@@ -156,7 +156,7 @@ public class BookingServiceImpl implements BookingService {
         List<ItemEntity> itemEntitySet = itemRepository.findAllByOwnerId(userId);
         Set<BookingEntity> bookingEntitySet = new HashSet<>();
         for (ItemEntity itemEntity : itemEntitySet) {
-            bookingEntitySet.addAll(bookingRepository.findAllByItem_id(itemEntity.getId()));
+            bookingEntitySet.addAll(bookingRepository.findAllByItemId(itemEntity.getId()));
         }
 
         List<BookingEntity> bookingEntities = new ArrayList<>(bookingEntitySet);

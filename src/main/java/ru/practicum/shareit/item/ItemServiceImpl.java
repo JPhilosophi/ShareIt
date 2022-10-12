@@ -86,7 +86,7 @@ public class ItemServiceImpl implements ItemService {
         for (ItemEntity itemEntity : itemEntityList) {
             items.add(itemEntity.getId());
         }
-        List<BookingEntity> bookingEntities = bookingRepository.findByItem_idIn(items);
+        List<BookingEntity> bookingEntities = bookingRepository.findByItemIdIn(items);
         List<ItemDto> result = new ArrayList<>();
         if (bookingEntities.isEmpty()) {
             return ItemMapper.mapToListItemDto(itemEntityList);
@@ -95,7 +95,7 @@ public class ItemServiceImpl implements ItemService {
                 ItemDto itemDto = ItemMapper.mapToItemDto(item);
                 ShortBookingDto lastShort = new ShortBookingDto();
                 ShortBookingDto nextShort = new ShortBookingDto();
-                List<BookingEntity> bookingEntityList = bookingRepository.findAllByItem_id(item.getId());
+                List<BookingEntity> bookingEntityList = bookingRepository.findAllByItemId(item.getId());
                 if (!bookingEntityList.isEmpty()) {
                     BookingEntity last = bookingRepository.findById(getLastBooking(bookingEntityList)
                             .getId()).orElse(null);
@@ -122,7 +122,7 @@ public class ItemServiceImpl implements ItemService {
     public ItemDto getById(Long userId, Long itemId) {
         ItemEntity item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException("Item not found"));
-        List<BookingEntity> bookings = bookingRepository.findAllByItem_id(itemId);
+        List<BookingEntity> bookings = bookingRepository.findAllByItemId(itemId);
         ItemDto itemDto = ItemMapper.mapToItemDto(item);
         if (bookings.isEmpty()) {
             return itemDto;
