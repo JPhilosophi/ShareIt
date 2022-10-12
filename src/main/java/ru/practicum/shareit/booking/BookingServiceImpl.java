@@ -123,11 +123,11 @@ public class BookingServiceImpl implements BookingService {
         if (userRepository.findById(userId).isEmpty() || bookingRepository.findByUserId(userId).isEmpty()) {
             throw new NotFoundException("Can't found user with id " + userId);
         }
-
         UserEntity userEntity = userRepository.findById(userId).orElseThrow();
         List<BookingEntity> bookings = bookingRepository.findAllByBookerIdOrderByStartDesc(userEntity.getId());
         List<BookingEntity> bookingEntityList = getBookingsByState(state, bookings);
-        List<BookingOutputDto> result = new ArrayList<>();
+        ArrayList<BookingOutputDto> bookingOutputDtos = new ArrayList<>();
+        List<BookingOutputDto> result = bookingOutputDtos;
 
         for (BookingEntity bookingEntity : bookingEntityList) {
             BookingOutputDto bookingOutputDto = new BookingOutputDto();
@@ -144,7 +144,6 @@ public class BookingServiceImpl implements BookingService {
             bookingOutputDto.setItem(shortItemDto);
             result.add(bookingOutputDto);
         }
-
         return result;
     }
 
@@ -158,7 +157,6 @@ public class BookingServiceImpl implements BookingService {
         for (ItemEntity itemEntity : itemEntitySet) {
             bookingEntitySet.addAll(bookingRepository.findAllByItemId(itemEntity.getId()));
         }
-
         List<BookingEntity> bookingEntities = new ArrayList<>(bookingEntitySet);
         bookingEntities = bookingEntities.stream()
                 .sorted((b1, b2) -> b2.getStart().compareTo(b1.getStart()))
@@ -182,7 +180,6 @@ public class BookingServiceImpl implements BookingService {
             bookingOutputDto.setItem(shortItemDto);
             result.add(bookingOutputDto);
         }
-
         return result;
     }
 
@@ -201,7 +198,7 @@ public class BookingServiceImpl implements BookingService {
                 return bookingRepository.findByStatus(Status.WAITING);
             case REJECTED:
                 return bookings.stream()
-                        .filter(bookingEntity ->Status.REJECTED.equals(bookingEntity.getStatus()))
+                        .filter(bookingEntity -> Status.REJECTED.equals(bookingEntity.getStatus()))
                         .collect(Collectors.toList());
             case ALL:
                 return bookings;
