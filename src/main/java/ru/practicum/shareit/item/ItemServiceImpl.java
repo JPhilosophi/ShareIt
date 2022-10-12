@@ -13,7 +13,6 @@ import ru.practicum.shareit.error.NotFoundException;
 import ru.practicum.shareit.user.UserEntity;
 import ru.practicum.shareit.user.UserRepository;
 
-import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -103,9 +102,9 @@ public class ItemServiceImpl implements ItemService {
                     BookingEntity next = bookingRepository.findById(getNextBooking(bookingEntityList)
                             .getId()).orElse(null);
                     lastShort.setId(last.getId());
-                    lastShort.setBookerId(last.getBooker_id());
+                    lastShort.setBookerId(last.getBookerId());
                     nextShort.setId(next.getId());
-                    nextShort.setBookerId(next.getBooker_id());
+                    nextShort.setBookerId(next.getBookerId());
                     itemDto.setLastBooking(lastShort);
                     itemDto.setNextBooking(nextShort);
                 } else {
@@ -134,12 +133,12 @@ public class ItemServiceImpl implements ItemService {
             Optional<BookingEntity> nextBookOp = Optional.ofNullable(getNextBooking(bookings));
             if (lastBookOp.isPresent()) {
                 lastShort.setId(lastBookOp.get().getId());
-                lastShort.setBookerId(lastBookOp.get().getBooker_id());
+                lastShort.setBookerId(lastBookOp.get().getBookerId());
                 itemDto.setLastBooking(lastShort);
             }
             if (nextBookOp.isPresent()) {
                 nextShort.setId(nextBookOp.get().getId());
-                nextShort.setBookerId(nextBookOp.get().getBooker_id());
+                nextShort.setBookerId(nextBookOp.get().getBookerId());
                 itemDto.setNextBooking(nextShort);
             }
             else {
@@ -173,7 +172,7 @@ public class ItemServiceImpl implements ItemService {
                 .orElseThrow(() -> new NotFoundException("booking not found"));
         BookingEntity bookingEntity = bookingRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException("booking not found"));
-        if (!bookingEntity.getBooker_id().equals(userId)) {
+        if (!bookingEntity.getBookerId().equals(userId)) {
             throw new BadRequestException("Add comment to item 1 without booking failed");
         }
         if (Status.APPROVED.equals(bookingEntity.getStatus()) && bookingEntity.getEnd().isAfter(LocalDateTime.now())) {

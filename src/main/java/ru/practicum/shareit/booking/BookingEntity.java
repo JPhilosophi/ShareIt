@@ -23,8 +23,10 @@ public class BookingEntity implements Comparable<BookingEntity> {
     private LocalDateTime end;
     @Enumerated(value = EnumType.STRING)
     private Status status;
-    private Long booker_id;
-    private Long item_id;
+    @Column(name = "booker_id")
+    private Long bookerId;
+    @Column(name = "item_id")
+    private Long itemId;
 
 
     @Override

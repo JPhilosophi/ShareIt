@@ -47,8 +47,8 @@ public class BookingServiceImpl implements BookingService {
             throw new BadRequestException("end time can't be in past");
         }
         BookingEntity bookingEntity = new BookingEntity();
-        bookingEntity.setBooker_id(userId);
-        bookingEntity.setItem_id(bookingInputDto.getItemId());
+        bookingEntity.setBookerId(userId);
+        bookingEntity.setItemId(bookingInputDto.getItemId());
         bookingEntity.setStart(bookingInputDto.getStart());
         bookingEntity.setEnd(bookingInputDto.getEnd());
         bookingEntity.setStatus(Status.WAITING);
@@ -64,7 +64,7 @@ public class BookingServiceImpl implements BookingService {
         BookingEntity bookingEntity = new BookingEntity();
         bookingEntity.setId(bookingId);
         bookingEntity = bookingRepository.findOne(Example.of(bookingEntity)).orElseThrow();
-        ItemEntity itemEntity = itemRepository.findById(bookingEntity.getItem_id()).orElseThrow();
+        ItemEntity itemEntity = itemRepository.findById(bookingEntity.getItemId()).orElseThrow();
         if (!itemEntity.getOwnerId().equals(userId)) {
             throw new NotFoundException("u must me owner");
         }
@@ -77,7 +77,7 @@ public class BookingServiceImpl implements BookingService {
             bookingEntity.setStatus(Status.REJECTED);
         }
         bookingEntity = bookingRepository.save(bookingEntity);
-        ShortUserDto shortUserDto = new ShortUserDto(bookingEntity.getBooker_id());
+        ShortUserDto shortUserDto = new ShortUserDto(bookingEntity.getBookerId());
         BookingOutputDto bookingOutputDto = new BookingOutputDto();
         bookingOutputDto.setId(bookingEntity.getId());
         bookingOutputDto.setStart(bookingEntity.getStart());
@@ -99,9 +99,9 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Can't found booking with id ");
         }
         BookingEntity bookingEntity = bookingRepository.findById(bookingId).orElseThrow();
-        ItemEntity itemEntity = itemRepository.findById(bookingEntity.getItem_id())
+        ItemEntity itemEntity = itemRepository.findById(bookingEntity.getItemId())
                 .orElseThrow(() -> new NotFoundException("booking not found"));
-        ShortUserDto shortUserDto = new ShortUserDto(bookingEntity.getBooker_id());
+        ShortUserDto shortUserDto = new ShortUserDto(bookingEntity.getBookerId());
         BookingOutputDto bookingOutputDto = new BookingOutputDto();
         bookingOutputDto.setId(bookingEntity.getId());
         bookingOutputDto.setStart(bookingEntity.getStart());
@@ -131,8 +131,8 @@ public class BookingServiceImpl implements BookingService {
 
         for (BookingEntity bookingEntity : bookingEntityList) {
             BookingOutputDto bookingOutputDto = new BookingOutputDto();
-            ShortUserDto shortUserDto = new ShortUserDto(bookingEntity.getBooker_id());
-            ItemEntity itemEntity = itemRepository.findById(bookingEntity.getItem_id())
+            ShortUserDto shortUserDto = new ShortUserDto(bookingEntity.getBookerId());
+            ItemEntity itemEntity = itemRepository.findById(bookingEntity.getItemId())
                     .orElseThrow(() -> new NotFoundException("booking not found"));
             bookingOutputDto.setId(bookingEntity.getId());
             bookingOutputDto.setStart(bookingEntity.getStart());
@@ -169,8 +169,8 @@ public class BookingServiceImpl implements BookingService {
 
         for (BookingEntity bookingEntity : bookings) {
             BookingOutputDto bookingOutputDto = new BookingOutputDto();
-            ShortUserDto shortUserDto = new ShortUserDto(bookingEntity.getBooker_id());
-            ItemEntity itemEntity = itemRepository.findById(bookingEntity.getItem_id())
+            ShortUserDto shortUserDto = new ShortUserDto(bookingEntity.getBookerId());
+            ItemEntity itemEntity = itemRepository.findById(bookingEntity.getItemId())
                     .orElseThrow(() -> new NotFoundException("booking not found"));
             bookingOutputDto.setId(bookingEntity.getId());
             bookingOutputDto.setStart(bookingEntity.getStart());

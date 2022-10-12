@@ -7,8 +7,8 @@ public class BookingMapper {
         booking.setId(bookingOutputDto.getId());
         booking.setStart(bookingOutputDto.getStart());
         booking.setEnd(bookingOutputDto.getEnd());
-        booking.setItem_id(bookingOutputDto.getItem_id());
-        booking.setBooker_id(bookingOutputDto.getBooker_id());
+        booking.setItemId(bookingOutputDto.getItem_id());
+        booking.setBookerId(bookingOutputDto.getBooker_id());
         return booking;
     }
 
@@ -18,8 +18,8 @@ public class BookingMapper {
         booking.setStart(bookingEntity.getStart());
         booking.setEnd(bookingEntity.getEnd());
         booking.setStatus(bookingEntity.getStatus());
-        booking.setBooker_id(bookingEntity.getBooker_id());
-        booking.setItem_id(bookingEntity.getItem_id());
+        booking.setBooker_id(bookingEntity.getBookerId());
+        booking.setItem_id(bookingEntity.getItemId());
         return booking;
     }
 }
