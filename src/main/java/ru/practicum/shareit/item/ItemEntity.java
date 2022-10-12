@@ -2,7 +2,6 @@ package ru.practicum.shareit.item;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-import ru.practicum.shareit.booking.BookingEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Slf4j
 @Service("UserRepository")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {

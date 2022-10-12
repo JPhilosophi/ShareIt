@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
 
     @Query("select b from BookingEntity b where b.bookerId = ?1 order by b.start DESC")
-    List<BookingEntity> findAllByBookerIdOrderByStartDesc(Long booker_id);
+    List<BookingEntity> findAllByBookerIdOrderByStartDesc(Long bookerId);
 
     @Query("select b from BookingEntity b where b.itemId = ?1")
     List<BookingEntity> findAllByItemId(Long item);

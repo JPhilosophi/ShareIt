@@ -11,7 +11,7 @@ import java.util.List;
 public class BookingController {
     private final BookingService bookingService;
 
-    public BookingController(@Qualifier("BookingRepository")BookingService bookingService) {
+    public BookingController(@Qualifier("BookingRepository") BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
@@ -22,25 +22,25 @@ public class BookingController {
 
     @PatchMapping("{bookingId}")
     public BookingOutputDto update(@RequestHeader("X-Sharer-User-Id") Long userId,
-                             @PathVariable Long bookingId,
-                             @RequestParam(name = "approved", required = false) Boolean approved) {
+                                   @PathVariable Long bookingId,
+                                   @RequestParam(name = "approved", required = false) Boolean approved) {
         return bookingService.update(userId, bookingId, approved);
     }
 
     @GetMapping("/{bookingId}")
-    public BookingOutputDto getById (@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long bookingId) {
+    public BookingOutputDto getById(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long bookingId) {
         return bookingService.getById(userId, bookingId);
     }
 
     @GetMapping
     public List<BookingOutputDto> getAll(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                   @RequestParam(name ="state", required = false) State state) {
+                                         @RequestParam(name = "state", required = false) State state) {
         return bookingService.getAllByBooker(userId, state);
     }
 
     @GetMapping("/owner")
     public List<BookingOutputDto> getAllByOwner(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                          @RequestParam(name ="state", required = false) State state) {
+                                                @RequestParam(name = "state", required = false) State state) {
         return bookingService.getAllByOwner(userId, state);
     }
 }

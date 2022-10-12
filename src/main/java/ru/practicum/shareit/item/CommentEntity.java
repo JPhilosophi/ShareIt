@@ -5,6 +5,7 @@ import ru.practicum.shareit.user.UserEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "comments")
 @Data

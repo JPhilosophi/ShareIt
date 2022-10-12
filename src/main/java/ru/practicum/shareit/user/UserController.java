@@ -9,34 +9,34 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
-    private final UserService UserService;
+    private final UserService userService;
 
     public UserController(@Qualifier("UserRepository") UserService userService) {
-        UserService = userService;
+        this.userService = userService;
     }
 
     @PostMapping
     public UserDto create(@Valid @RequestBody UserDto user) {
-        return UserService.create(user);
+        return userService.create(user);
     }
 
     @PatchMapping("/{id}")
     public UserDto update(@RequestBody UserDto user, @PathVariable Long id) {
-        return UserService.update(id, user);
+        return userService.update(id, user);
     }
 
     @GetMapping
     public List<UserDto> getAll() {
-        return UserService.getUsers();
+        return userService.getUsers();
     }
 
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable Long id) {
-        return UserService.get(id);
+        return userService.get(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
-        UserService.delete(id);
+        userService.delete(id);
     }
 }

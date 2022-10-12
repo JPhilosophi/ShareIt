@@ -140,8 +140,7 @@ public class ItemServiceImpl implements ItemService {
                 nextShort.setId(nextBookOp.get().getId());
                 nextShort.setBookerId(nextBookOp.get().getBookerId());
                 itemDto.setNextBooking(nextShort);
-            }
-            else {
+            } else {
                 itemDto.setLastBooking(null);
                 itemDto.setNextBooking(null);
             }
