@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS items (
                                      owner_id BIGINT NOT NULL,
                                      FOREIGN KEY (owner_id) REFERENCES users (id),
                                      is_available BOOLEAN,
-                                     request_id BIGINT NOT NULL,
-                                    FOREIGN KEY (request_id) REFERENCES requests (id)
+                                     request_id BIGINT,
+                                     FOREIGN KEY (request_id) REFERENCES requests (id)
 );
 
 CREATE TABLE IF NOT EXISTS bookings (
