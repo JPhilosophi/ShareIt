@@ -2,6 +2,7 @@ package ru.practicum.shareit.booking.controller;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.booking.model.BookingCreateAnswer;
 import ru.practicum.shareit.booking.model.State;
 import ru.practicum.shareit.booking.model.BookingInputDto;
 import ru.practicum.shareit.booking.model.BookingOutputDto;
@@ -20,7 +21,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public BookingOutputDto create(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @RequestBody BookingInputDto bookingInputDto) {
+    public BookingCreateAnswer create(@RequestHeader("X-Sharer-User-Id") Long userId, @Valid @RequestBody BookingInputDto bookingInputDto) {
         return bookingService.create(userId, bookingInputDto);
     }
 

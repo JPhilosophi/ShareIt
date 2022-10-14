@@ -3,13 +3,9 @@ package ru.practicum.shareit.booking.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.booking.model.*;
 import ru.practicum.shareit.booking.repository.BookingRepository;
-import ru.practicum.shareit.booking.model.State;
-import ru.practicum.shareit.booking.model.Status;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
-import ru.practicum.shareit.booking.model.BookingEntity;
-import ru.practicum.shareit.booking.model.BookingInputDto;
-import ru.practicum.shareit.booking.model.BookingOutputDto;
 import ru.practicum.shareit.error.BadRequestException;
 import ru.practicum.shareit.error.NotFoundException;
 import ru.practicum.shareit.item.mapper.ItemMapper;
@@ -41,7 +37,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingOutputDto create(Long userId, BookingInputDto bookingInputDto) {
+    public BookingCreateAnswer create(Long userId, BookingInputDto bookingInputDto) {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Can't found user with id " + userId));
         Optional<ItemEntity> itemEntityOp = itemRepository.findById(bookingInputDto.getItemId());
@@ -63,7 +59,9 @@ public class BookingServiceImpl implements BookingService {
         bookingEntity.setEnd(bookingInputDto.getEnd());
         bookingEntity.setStatus(Status.WAITING);
         bookingEntity = bookingRepository.save(bookingEntity);
-        return BookingMapper.toBookingDto(bookingEntity);
+        BookingCreateAnswer createAnswer = new BookingCreateAnswer();
+        createAnswer.setId(bookingEntity.getId());
+        return createAnswer;
     }
 
     @Override
