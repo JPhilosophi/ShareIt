@@ -1,6 +1,5 @@
 package ru.practicum.shareit.booking.mapper;
 
-import ru.practicum.shareit.booking.model.BookingCreateAnswer;
 import ru.practicum.shareit.booking.model.BookingEntity;
 import ru.practicum.shareit.booking.model.BookingOutputDto;
 
@@ -25,11 +24,5 @@ public class BookingMapper {
         booking.setBookerId(bookingEntity.getBookerId());
         booking.setItemId(bookingEntity.getItemId());
         return booking;
-    }
-
-    public static BookingCreateAnswer toCreateAnswer(BookingEntity bookingEntity) {
-        BookingCreateAnswer bookingCreateAnswer = new BookingCreateAnswer();
-        bookingCreateAnswer.setId(bookingEntity.getId());
-        return bookingCreateAnswer;
     }
 }
