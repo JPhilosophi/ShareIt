@@ -3,9 +3,9 @@ package ru.practicum.shareit.booking.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.booking.model.*;
 import ru.practicum.shareit.booking.repository.BookingRepository;
-import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.error.BadRequestException;
 import ru.practicum.shareit.error.NotFoundException;
 import ru.practicum.shareit.item.mapper.ItemMapper;
@@ -37,7 +37,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingAnswer create(Long userId, BookingInputDto bookingInputDto) {
+    public BookingOutputDto create(Long userId, BookingInputDto bookingInputDto) {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Can't found user with id " + userId));
         Optional<ItemEntity> itemEntityOp = itemRepository.findById(bookingInputDto.getItemId());
@@ -52,14 +52,15 @@ public class BookingServiceImpl implements BookingService {
                 || bookingInputDto.getStart().isBefore(LocalDateTime.now())) {
             throw new BadRequestException("end time can't be in past");
         }
-        BookingEntity bookingEntity = new BookingEntity();
-        bookingEntity.setBookerId(userEntity.getId());
-        bookingEntity.setItemId(bookingInputDto.getItemId());
-        bookingEntity.setStart(bookingInputDto.getStart());
-        bookingEntity.setEnd(bookingInputDto.getEnd());
+        BookingEntity bookingEntity = BookingMapper.toBooking(bookingInputDto, userId);
         bookingEntity.setStatus(Status.WAITING);
         bookingEntity = bookingRepository.save(bookingEntity);
-        return BookingMapper.toBookingDto(bookingEntity);
+        BookingOutputDto bookingOutputDto = BookingMapper.toBookingDto(bookingEntity);
+        ShortUserDto shortUserDto = new ShortUserDto(userEntity.getId());
+        ShortItemDto shortItemDto = new ShortItemDto(itemEntityOp.get().getId(), itemEntityOp.get().getName());
+        bookingOutputDto.setBooker(shortUserDto);
+        bookingOutputDto.setItem(shortItemDto);
+        return bookingOutputDto;
     }
 
     @Override
