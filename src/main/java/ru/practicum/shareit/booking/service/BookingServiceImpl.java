@@ -37,7 +37,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingCreateAnswer create(Long userId, BookingInputDto bookingInputDto) {
+    public BookingOutputDto create(Long userId, BookingInputDto bookingInputDto) {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Can't found user with id " + userId));
         Optional<ItemEntity> itemEntityOp = itemRepository.findById(bookingInputDto.getItemId());
@@ -59,7 +59,7 @@ public class BookingServiceImpl implements BookingService {
         bookingEntity.setEnd(bookingInputDto.getEnd());
         bookingEntity.setStatus(Status.WAITING);
         bookingEntity = bookingRepository.save(bookingEntity);
-        return BookingMapper.toCreateAnswer(bookingEntity);
+        return BookingMapper.toBookingDto(bookingEntity);
     }
 
     @Override

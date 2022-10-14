@@ -8,7 +8,7 @@ import ru.practicum.shareit.booking.model.BookingOutputDto;
 import java.util.List;
 
 public interface BookingService {
-    BookingCreateAnswer create(Long userId, BookingInputDto bookingInputDto);
+    BookingOutputDto create(Long userId, BookingInputDto bookingInputDto);
 
     BookingOutputDto update(Long userId, Long bookingId, Boolean approved);
 
