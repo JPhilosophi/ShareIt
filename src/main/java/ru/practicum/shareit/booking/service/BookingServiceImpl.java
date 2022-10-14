@@ -42,9 +42,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingOutputDto create(Long userId, BookingInputDto bookingInputDto) {
-        if (userRepository.findById(userId).isEmpty()) {
-            throw new NotFoundException("Can't found user with id " + userId);
-        }
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Can't found user with id " + userId));
         Optional<ItemEntity> itemEntityOp = itemRepository.findById(bookingInputDto.getItemId());
         if (itemEntityOp.isEmpty() || itemEntityOp.get().getOwnerId().equals(userId)) {
             throw new NotFoundException("Can't found item with id " + bookingInputDto.getItemId());
@@ -58,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
             throw new BadRequestException("end time can't be in past");
         }
         BookingEntity bookingEntity = new BookingEntity();
-        bookingEntity.setBookerId(userId);
+        bookingEntity.setBookerId(userEntity.getId());
         bookingEntity.setItemId(bookingInputDto.getItemId());
         bookingEntity.setStart(bookingInputDto.getStart());
         bookingEntity.setEnd(bookingInputDto.getEnd());
