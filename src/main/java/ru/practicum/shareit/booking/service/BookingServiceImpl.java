@@ -59,9 +59,7 @@ public class BookingServiceImpl implements BookingService {
         bookingEntity.setEnd(bookingInputDto.getEnd());
         bookingEntity.setStatus(Status.WAITING);
         bookingEntity = bookingRepository.save(bookingEntity);
-        BookingCreateAnswer createAnswer = new BookingCreateAnswer();
-        createAnswer.setId(bookingEntity.getId());
-        return createAnswer;
+        return BookingMapper.toCreateAnswer(bookingEntity);
     }
 
     @Override
