@@ -37,7 +37,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingOutputDto create(Long userId, BookingInputDto bookingInputDto) {
+    public BookingAnswer create(Long userId, BookingInputDto bookingInputDto) {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Can't found user with id " + userId));
         Optional<ItemEntity> itemEntityOp = itemRepository.findById(bookingInputDto.getItemId());

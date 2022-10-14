@@ -7,10 +7,7 @@ import ru.practicum.shareit.user.model.ShortUserDto;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
+@Data
 public class BookingOutputDto {
     private Long id;
     @JsonFormat
