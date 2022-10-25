@@ -1,49 +1,17 @@
 package ru.practicum.shareit.user.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import ru.practicum.shareit.user.dao.IUserDao;
-import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.model.UserDto;
 
 import java.util.List;
 
-@Slf4j
-@Service
-public class UserService implements IUserService {
-    private final IUserDao userStorage;
+public interface UserService {
+    UserDto create(UserDto user);
 
-    public UserService(@Qualifier("memoryUser") IUserDao userStorage) {
-        this.userStorage = userStorage;
-    }
+    UserDto update(Long id, UserDto user);
 
-    @Override
-    public User create(User user) {
-        return userStorage.create(user);
-    }
+    UserDto get(Long id);
 
-    @Override
-    public User update(Long id, User user) {
-        return userStorage.update(id, user);
-    }
+    List<UserDto> getUsers();
 
-    @Override
-    public User get(Long id) {
-        return userStorage.get(id);
-    }
-
-    @Override
-    public List<User> getUsers() {
-        return userStorage.getUsers();
-    }
-
-    @Override
-    public void delete(Long id) {
-        userStorage.delete(id);
-    }
-
-    @Override
-    public void userVerification(User user) {
-
-    }
+    void delete(Long id);
 }

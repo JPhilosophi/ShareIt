@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class ErrorHandler {
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     private ErrorResponse duplicateError(final DuplicateError e) {
@@ -21,7 +20,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     private ErrorResponse handleObjectException(final BadRequestException e) {
         log.error("Error: something wrong with Object");
-        return new ErrorResponse("Error: something wrong with Object");
+        return new ErrorResponse("Unknown state: UNSUPPORTED_STATUS");
     }
 
     @ExceptionHandler
