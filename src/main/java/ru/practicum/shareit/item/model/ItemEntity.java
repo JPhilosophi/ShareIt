@@ -1,6 +1,6 @@
 package ru.practicum.shareit.item.model;
 
-import lombok.*;
+import lombok.Data;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -31,6 +31,7 @@ public class ItemEntity {
     private Long lastBookingId;
     @Transient
     private Long nextBookingId;
+
 
     @Override
     public boolean equals(Object o) {

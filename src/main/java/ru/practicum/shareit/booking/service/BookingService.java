@@ -11,9 +11,9 @@ public interface BookingService {
 
     BookingOutputDto update(Long userId, Long bookingId, Boolean approved);
 
-    List<BookingOutputDto> getAllByBooker(Long userId, State state);
+    List<BookingOutputDto> getAllByBooker(Long userId, State state, Integer from, Integer size);
 
     BookingOutputDto getById(Long userId, Long bookingId);
 
-    List<BookingOutputDto> getAllByOwner(Long userId, State state);
+    List<BookingOutputDto> getAllByOwner(Long userId, State state, Integer from, Integer size);
 }
