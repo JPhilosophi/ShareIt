@@ -14,7 +14,7 @@ public class ItemMapper {
         item.setDescription(itemEntity.getDescription());
         item.setOwner(itemEntity.getOwnerId());
         item.setAvailable(itemEntity.getAvailable());
-        item.setRequest(itemEntity.getRequest());
+        item.setRequestId(itemEntity.getRequestId());
         return item;
     }
 
@@ -25,7 +25,7 @@ public class ItemMapper {
         itemEntity.setDescription(item.getDescription());
         itemEntity.setOwnerId(item.getOwner());
         itemEntity.setAvailable(item.getAvailable());
-        itemEntity.setRequest(item.getRequest());
+        itemEntity.setRequestId(item.getRequestId());
         itemEntity.setLastBookingId(itemEntity.getLastBookingId());
         itemEntity.setNextBookingId(itemEntity.getNextBookingId());
         return itemEntity;

@@ -48,6 +48,7 @@ public class ItemServiceImpl implements ItemService {
                 .findById(userId)
                 .orElseThrow(() -> new NotFoundException("Can't found user with id " + userId));
         item.setOwner(userEntity.getId());
+        item.setRequestId(item.getRequestId());
         ItemEntity itemEntity = itemRepository.save(ItemMapper.mapToItemEntity(item));
         return ItemMapper.mapToItemDto(itemEntity);
     }

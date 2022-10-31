@@ -14,7 +14,6 @@ import java.util.Objects;
 public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(message = "Id can't be null")
     private Long id = 0L;
     @NotNull(message = "Name can't be null")
     @NotEmpty(message = "Name can't be empty")
@@ -27,7 +26,7 @@ public class ItemEntity {
     @Column(name = "owner_id")
     private Long ownerId;
     @Column(name = "request_id")
-    private Long request;
+    private Long requestId;
     @Transient
     private Long lastBookingId;
     @Transient
