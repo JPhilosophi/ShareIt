@@ -78,6 +78,7 @@ class ItemServiceImplTest {
         comment.setText("text");
         comment.setAuthor(author);
         comment.setCreated(created);
+        comment.setItem(item);
 
         bookingEntity = new BookingEntity();
         bookingEntity.setId(1L);
