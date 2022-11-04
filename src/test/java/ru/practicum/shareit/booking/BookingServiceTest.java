@@ -17,7 +17,6 @@ import ru.practicum.shareit.booking.model.Status;
 import ru.practicum.shareit.booking.repository.BookingRepository;
 import ru.practicum.shareit.booking.service.BookingServiceImpl;
 import ru.practicum.shareit.error.BadRequestException;
-import ru.practicum.shareit.error.ErrorHandlerTest;
 import ru.practicum.shareit.error.NotFoundException;
 import ru.practicum.shareit.item.model.ItemEntity;
 import ru.practicum.shareit.item.repository.ItemRepository;
@@ -29,7 +28,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
