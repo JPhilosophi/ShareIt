@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShortUserDtoTest {
     @Test
-    void ShortUserDto() {
+    void shortUserDto() {
         ShortUserDto shortUserDto = new ShortUserDto(1L);
         assertEquals(shortUserDto.getId(), 1L);
     }
