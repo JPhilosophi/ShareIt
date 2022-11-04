@@ -41,7 +41,7 @@ public class BookingController {
                                          @RequestParam(name = "state", required = false) State state,
                                          @RequestParam(defaultValue = "0") Integer from,
                                          @RequestParam(defaultValue = "10") Integer size) {
-        return bookingService.getAllByBooker(userId, state);
+        return bookingService.getAllByBooker(userId, state, from, size);
     }
 
     @GetMapping("/owner")
@@ -49,6 +49,6 @@ public class BookingController {
                                                 @RequestParam(name = "state", required = false) State state,
                                                 @RequestParam(defaultValue = "0") Integer from,
                                                 @RequestParam(defaultValue = "10") Integer size) {
-        return bookingService.getAllByOwner(userId, state);
+        return bookingService.getAllByOwner(userId, state, from, size);
     }
 }

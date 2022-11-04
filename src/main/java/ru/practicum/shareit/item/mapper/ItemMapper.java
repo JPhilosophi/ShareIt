@@ -26,8 +26,6 @@ public class ItemMapper {
         itemEntity.setOwnerId(item.getOwner());
         itemEntity.setAvailable(item.getAvailable());
         itemEntity.setRequestId(item.getRequestId());
-        itemEntity.setLastBookingId(itemEntity.getLastBookingId());
-        itemEntity.setNextBookingId(itemEntity.getNextBookingId());
         return itemEntity;
     }
 

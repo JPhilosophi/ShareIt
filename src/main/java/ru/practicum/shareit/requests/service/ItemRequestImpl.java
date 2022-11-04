@@ -19,12 +19,11 @@ import ru.practicum.shareit.user.model.UserEntity;
 import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Service("ItemRequestRepository")
-public class ItemRequestImpl implements ItemRequestService{
+public class ItemRequestImpl implements ItemRequestService {
     private final ItemRequestRepository itemRequestRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;

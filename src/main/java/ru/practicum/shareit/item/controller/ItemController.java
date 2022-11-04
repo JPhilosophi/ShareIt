@@ -1,7 +1,5 @@
 package ru.practicum.shareit.item.controller;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.model.CommentDto;
 import ru.practicum.shareit.item.model.CommentInto;
@@ -43,7 +41,7 @@ public class ItemController {
     }
 
     @GetMapping("/search") //sort -> поля берутчя из объекта.
-    public List<ItemDto> search(@RequestHeader("X-Sharer-User-Id") Long userId, @SortDefault(sort = "createdAt") Pageable pageable, @RequestParam String text) {
+    public List<ItemDto> search(@RequestHeader("X-Sharer-User-Id") Long userId, @RequestParam String text) {
         return itemService.search(userId, text);
     }
 

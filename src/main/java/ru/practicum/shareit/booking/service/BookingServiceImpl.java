@@ -2,6 +2,9 @@ package ru.practicum.shareit.booking.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.booking.model.*;
@@ -126,15 +129,18 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingOutputDto> getAllByBooker(Long userId, State state) {
+    public List<BookingOutputDto> getAllByBooker(Long userId, State state, Integer from, Integer size) {
         if (userRepository.findById(userId).isEmpty() || bookingRepository.findByUserId(userId).isEmpty()) {
             throw new NotFoundException("Can't found user with id " + userId);
         }
         UserEntity userEntity = userRepository.findById(userId).orElseThrow();
-        List<BookingEntity> bookings = bookingRepository.findAllByBookerIdOrderByStartDesc(userEntity.getId());
+        if (from > 0) {
+            from = from - 1;
+        }
+        Pageable pageable = PageRequest.of(from, size, Sort.by(Sort.Direction.DESC, "start"));
+        List<BookingEntity> bookings = bookingRepository.findAllByBookerId(userEntity.getId(), pageable);
         List<BookingEntity> bookingEntityList = getBookingsByState(state, bookings);
         ArrayList<BookingOutputDto> bookingOutputDtos = new ArrayList<>();
-        List<BookingOutputDto> result = bookingOutputDtos;
 
         for (BookingEntity bookingEntity : bookingEntityList) {
             BookingOutputDto bookingOutputDto = new BookingOutputDto();
@@ -149,20 +155,21 @@ public class BookingServiceImpl implements BookingService {
             ItemDto itemDto = ItemMapper.mapToItemDto(itemEntity);
             ShortItemDto shortItemDto = new ShortItemDto(itemDto.getId(), itemDto.getName());
             bookingOutputDto.setItem(shortItemDto);
-            result.add(bookingOutputDto);
+            ((List<BookingOutputDto>) bookingOutputDtos).add(bookingOutputDto);
         }
-        return result;
+        return bookingOutputDtos;
     }
 
     @Override
-    public List<BookingOutputDto> getAllByOwner(Long userId, State state) {
+    public List<BookingOutputDto> getAllByOwner(Long userId, State state, Integer from, Integer size) {
+        Pageable pageable = PageRequest.of(from, size, Sort.by(Sort.Direction.DESC, "start"));
         if (userRepository.findById(userId).isEmpty()) {
             throw new NotFoundException("Can't found user with id " + userId);
         }
         List<ItemEntity> itemEntitySet = itemRepository.findAllByOwnerId(userId);
         Set<BookingEntity> bookingEntitySet = new HashSet<>();
         for (ItemEntity itemEntity : itemEntitySet) {
-            bookingEntitySet.addAll(bookingRepository.findAllByItemId(itemEntity.getId()));
+            bookingEntitySet.addAll(bookingRepository.findAllByItemId(itemEntity.getId(), pageable));
         }
         List<BookingEntity> bookingEntities = new ArrayList<>(bookingEntitySet);
         bookingEntities = bookingEntities.stream()
