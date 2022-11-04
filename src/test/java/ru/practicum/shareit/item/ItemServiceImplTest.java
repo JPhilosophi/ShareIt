@@ -47,6 +47,7 @@ class ItemServiceImplTest {
     private UserEntity author;
     private UserEntity user;
     private BookingEntity bookingEntity;
+    private BookingEntity last;
 
     @BeforeEach
     void setUp() {
@@ -86,6 +87,14 @@ class ItemServiceImplTest {
         bookingEntity.setStart(LocalDateTime.now().plusDays(1));
         bookingEntity.setEnd(LocalDateTime.now().plusDays(2));
 
+        last = new BookingEntity();
+        last.setId(2L);
+        last.setBookerId(3L);
+        last.setItemId(2L);
+        last.setStatus(Status.APPROVED);
+        last.setStart(LocalDateTime.now().plusDays(1));
+        last.setEnd(LocalDateTime.now().plusDays(2));
+
         commentInto = new CommentInto();
         commentInto.setId(1L);
         commentInto.setItemId(2L);
@@ -122,6 +131,18 @@ class ItemServiceImplTest {
         verify(itemRepository, times(1)).findById(item.getId());
         assertNotNull(result);
         assertEquals(item.getId(), result.getId());
+    }
+
+    @Test
+    void get() {
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        when(itemRepository.findAllByOwnerId(user.getId())).thenReturn(List.of(item));
+        when(bookingRepository.findByItemIdIn(List.of(item.getId()))).thenReturn(List.of(bookingEntity));
+        lenient().when(bookingRepository.findById(item.getId())).thenReturn(Optional.of(bookingEntity));
+        var result = itemService.get(user.getId());
+        verify(itemRepository, times(1)).findAllByOwnerId(user.getId());
+        assertNotNull(result);
+        assertEquals(result.size(), 1);
     }
 
     @Test

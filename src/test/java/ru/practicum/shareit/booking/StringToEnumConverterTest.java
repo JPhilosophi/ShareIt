@@ -3,6 +3,7 @@ package ru.practicum.shareit.booking;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.practicum.shareit.booking.converter.StringToEnumConverter;
 import ru.practicum.shareit.booking.model.State;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +13,7 @@ public class StringToEnumConverterTest {
     @Test
     void convert() {
         String status = "CURRENT";
-        assertEquals(State.CURRENT, State.valueOf(status.toUpperCase()));
+        StringToEnumConverter stringToEnumConverter = new StringToEnumConverter();
+        assertEquals(stringToEnumConverter.convert(status), State.CURRENT);
     }
 }
