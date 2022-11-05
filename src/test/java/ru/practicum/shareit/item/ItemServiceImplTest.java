@@ -14,6 +14,7 @@ import ru.practicum.shareit.error.NotFoundException;
 import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.item.model.CommentEntity;
 import ru.practicum.shareit.item.model.CommentInto;
+import ru.practicum.shareit.item.model.ItemDto;
 import ru.practicum.shareit.item.model.ItemEntity;
 import ru.practicum.shareit.item.repository.CommentRepository;
 import ru.practicum.shareit.item.repository.ItemRepository;
@@ -42,16 +43,36 @@ class ItemServiceImplTest {
     @InjectMocks
     private ItemServiceImpl itemService;
     private ItemEntity item;
+    private ItemDto itemWithoutName;
+    private ItemDto itemWithoutAvailable;
+    private ItemDto itemOnlyName;
     private CommentEntity comment;
     private CommentInto commentInto;
     private UserEntity author;
     private UserEntity user;
     private BookingEntity bookingEntity;
     private BookingEntity last;
+    private BookingEntity next;
 
     @BeforeEach
     void setUp() {
         LocalDateTime created = LocalDateTime.now().withNano(0);
+
+        last = new BookingEntity();
+        last.setId(1L);
+        last.setBookerId(3L);
+        last.setItemId(2L);
+        last.setStatus(Status.APPROVED);
+        last.setStart(LocalDateTime.now().plusDays(1));
+        last.setEnd(LocalDateTime.now().plusDays(2));
+
+        next = new BookingEntity();
+        next.setId(2L);
+        next.setBookerId(3L);
+        next.setItemId(2L);
+        next.setStatus(Status.APPROVED);
+        next.setStart(LocalDateTime.now().plusDays(1));
+        next.setEnd(LocalDateTime.now().plusDays(2));
 
         item = new ItemEntity();
         item.setId(2L);
@@ -60,8 +81,20 @@ class ItemServiceImplTest {
         item.setOwnerId(1L);
         item.setRequestId(1L);
         item.setAvailable(true);
-        item.setNextBookingId(1L);
-        item.setLastBookingId(2L);
+        item.setNextBookingId(next.getId());
+        item.setLastBookingId(last.getId());
+
+        itemWithoutName = new ItemDto();
+        itemWithoutName.setId(2L);
+        itemWithoutName.setAvailable(true);
+
+        itemWithoutAvailable = new ItemDto();
+        itemWithoutAvailable.setId(2L);
+        itemWithoutAvailable.setDescription("Санки");
+
+        itemOnlyName = new ItemDto();
+        itemOnlyName.setId(2L);
+        itemOnlyName.setName("Санки");
 
         author = new UserEntity();
         author.setId(2L);
@@ -87,14 +120,6 @@ class ItemServiceImplTest {
         bookingEntity.setStatus(Status.APPROVED);
         bookingEntity.setStart(LocalDateTime.now().plusDays(1));
         bookingEntity.setEnd(LocalDateTime.now().plusDays(2));
-
-        last = new BookingEntity();
-        last.setId(2L);
-        last.setBookerId(3L);
-        last.setItemId(2L);
-        last.setStatus(Status.APPROVED);
-        last.setStart(LocalDateTime.now().plusDays(1));
-        last.setEnd(LocalDateTime.now().plusDays(2));
 
         commentInto = new CommentInto();
         commentInto.setId(1L);
@@ -124,6 +149,30 @@ class ItemServiceImplTest {
     }
 
     @Test
+    void updateWithoutNameAndDescription() {
+        when(itemRepository.findOne(Example.of(item))).thenReturn(Optional.of(item));
+        var resutl = itemService.update(user.getId(), itemWithoutName.getId(), itemWithoutName);
+        assertEquals(resutl.getName(), item.getName());
+        assertEquals(resutl.getAvailable(), item.getAvailable());
+    }
+
+    @Test
+    void updateWithoutNameAndAvailable() {
+        when(itemRepository.findOne(Example.of(item))).thenReturn(Optional.of(item));
+        var resutl = itemService.update(user.getId(), itemWithoutName.getId(), itemWithoutAvailable);
+        assertEquals(resutl.getName(), item.getName());
+        assertEquals(resutl.getDescription(), item.getDescription());
+    }
+
+    @Test
+    void updateOnlyName() {
+        when(itemRepository.findOne(Example.of(item))).thenReturn(Optional.of(item));
+        var resutl = itemService.update(user.getId(), itemWithoutName.getId(), itemOnlyName);
+        assertEquals(resutl.getName(), item.getName());
+        assertEquals(resutl.getDescription(), item.getDescription());
+    }
+
+    @Test
     void getById() {
         when(itemRepository.findById(item.getId())).thenReturn(Optional.of(item));
         when(bookingRepository.findAllByItemId(item.getId())).thenReturn(List.of(bookingEntity));
@@ -139,7 +188,8 @@ class ItemServiceImplTest {
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
         when(itemRepository.findAllByOwnerId(user.getId())).thenReturn(List.of(item));
         when(bookingRepository.findByItemIdIn(List.of(item.getId()))).thenReturn(List.of(bookingEntity));
-        lenient().when(bookingRepository.findById(item.getId())).thenReturn(Optional.of(bookingEntity));
+        lenient().when(bookingRepository.findById(last.getId())).thenReturn(Optional.of(last));
+        lenient().when(bookingRepository.findById(next.getId())).thenReturn(Optional.of(next));
         var result = itemService.get(user.getId());
         verify(itemRepository, times(1)).findAllByOwnerId(user.getId());
         assertNotNull(result);

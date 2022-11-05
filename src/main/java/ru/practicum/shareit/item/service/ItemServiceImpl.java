@@ -197,7 +197,7 @@ public class ItemServiceImpl implements ItemService {
         throw new BadRequestException("Only bookmakers can create comments");
     }
 
-    private BookingEntity getNextBooking(List<BookingEntity> bookings) {
+    public BookingEntity getNextBooking(List<BookingEntity> bookings) {
         LocalDateTime current = LocalDateTime.now();
 
         return bookings.stream()
@@ -206,7 +206,7 @@ public class ItemServiceImpl implements ItemService {
                 .findFirst().orElse(null);
     }
 
-    private BookingEntity getLastBooking(List<BookingEntity> bookings) {
+    public BookingEntity getLastBooking(List<BookingEntity> bookings) {
         LocalDateTime current = LocalDateTime.now();
 
         return bookings.stream()

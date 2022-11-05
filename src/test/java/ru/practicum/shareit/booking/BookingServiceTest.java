@@ -46,6 +46,7 @@ class BookingServiceTest {
     private UserEntity booker;
     private UserEntity owner;
     private BookingEntity bookingEntity;
+    private BookingEntity currentBooking;
     private ItemEntity itemEntity;
     private BookingInputDto bookingInputDto;
     private Pageable pageable;
@@ -81,6 +82,14 @@ class BookingServiceTest {
         bookingEntity.setStart(LocalDateTime.now().plusDays(1));
         bookingEntity.setEnd(LocalDateTime.now().plusDays(2));
 
+        currentBooking = new BookingEntity();
+        currentBooking.setId(1L);
+        currentBooking.setBookerId(2L);
+        currentBooking.setItemId(2L);
+        currentBooking.setStatus(Status.APPROVED);
+        currentBooking.setStart(LocalDateTime.now().minusDays(1));
+        currentBooking.setEnd(LocalDateTime.now().plusDays(2));
+
         bookingInputDto = new BookingInputDto();
         bookingInputDto.setItemId(2L);
         bookingInputDto.setStart(LocalDateTime.now().plusDays(1));
@@ -104,8 +113,9 @@ class BookingServiceTest {
 
     @Test
     void createNotFoundItem() {
+        itemEntity.setId(null);
         lenient().when(itemRepository.findById(itemEntity.getId())).thenReturn(Optional.of(itemEntity));
-        assertThrows(NotFoundException.class, () -> bookingService.create(12L, bookingInputDto));
+        assertThrows(NotFoundException.class, () -> bookingService.create(itemEntity.getId(), bookingInputDto));
     }
 
     @Test
@@ -174,6 +184,16 @@ class BookingServiceTest {
         var result = bookingService.getById(booker.getId(), bookingEntity.getId());
         verify(bookingRepository, times(2)).findById(anyLong());
         assertEquals(result.getItem().getId(), bookingEntity.getItemId());
+    }
+
+    @Test
+    void getBookingByCurrentState() {
+        LocalDateTime currentTime = LocalDateTime.now().plusMinutes(1);
+        when(bookingRepository.findByStartIsBeforeAndEndIsAfter(currentTime, currentTime))
+                .thenReturn(List.of(currentBooking));
+        var result = bookingService.getBookingsByState(State.CURRENT, List.of(currentBooking));
+        assertEquals(result.size(), 1);
+        assertEquals(result.get(0).getId(), currentBooking.getId());
     }
 
 }

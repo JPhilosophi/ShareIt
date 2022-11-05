@@ -198,7 +198,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
 
-    private List<BookingEntity> getBookingsByState(State state, List<BookingEntity> bookings) {
+    public List<BookingEntity> getBookingsByState(State state, List<BookingEntity> bookings) {
         LocalDateTime currentTime = LocalDateTime.now();
 
         switch (state != null ? state : State.ALL) {
