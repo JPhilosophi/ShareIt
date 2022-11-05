@@ -29,6 +29,8 @@ class UserServiceImplTest {
     private UserServiceImpl userService;
     private  UserEntity userEntity;
     private UserDto user;
+    private UserDto userDto;
+    private UserDto userWithoutName;
 
     @BeforeEach
     void setUp() {
@@ -41,6 +43,15 @@ class UserServiceImplTest {
         userEntity.setId(1L);
         userEntity.setName("Vlad");
         userEntity.setEmail("blad@vlad.ru");
+
+        userDto = new UserDto();
+        userDto.setId(1L);
+        userDto.setName("Vlad");
+
+        userWithoutName = new UserDto();
+        userWithoutName.setId(1L);
+        userWithoutName.setEmail("blad@vlad.ru");
+
     }
 
     @Test
@@ -86,6 +97,20 @@ class UserServiceImplTest {
         verify(userRepository, times(1)).save(userEntity);
         assertNotNull(result);
         assertEquals(userEntity, result);
+    }
+
+    @Test
+    void updateWithoutEmail() {
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(userEntity));
+        var result = userService.update(userEntity.getId(), userDto);
+        assertEquals(userDto.getEmail(), userEntity.getEmail());
+    }
+
+    @Test
+    void updateWithoutName() {
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(userEntity));
+        var result = userService.update(userEntity.getId(), userWithoutName);
+        assertEquals(userDto.getName(), userEntity.getName());
     }
 
     @Test

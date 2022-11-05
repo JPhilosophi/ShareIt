@@ -10,6 +10,7 @@ import org.springframework.data.domain.Example;
 import ru.practicum.shareit.booking.model.BookingEntity;
 import ru.practicum.shareit.booking.model.Status;
 import ru.practicum.shareit.booking.repository.BookingRepository;
+import ru.practicum.shareit.error.NotFoundException;
 import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.item.model.CommentEntity;
 import ru.practicum.shareit.item.model.CommentInto;
@@ -24,8 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -164,6 +164,11 @@ class ItemServiceImplTest {
         verify(commentRepository, times(1)).save(any(CommentEntity.class));
         assertNotNull(result);
         assertEquals(result.getId(), comment.getId());
+    }
+
+    @Test
+    void getNotFoundExceptionItems() {
+        assertThrows(NotFoundException.class, () -> itemService.get(1L));
     }
 
 }

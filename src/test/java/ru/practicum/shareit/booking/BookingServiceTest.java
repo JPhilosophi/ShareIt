@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -99,6 +100,12 @@ class BookingServiceTest {
         verify(bookingRepository, times(1)).save(any(BookingEntity.class));
         assertEquals(result.getItem().getId(), bookingEntity.getItemId());
         assertSame(result.getStatus(), Status.WAITING);
+    }
+
+    @Test
+    void createNotFoundItem() {
+        lenient().when(itemRepository.findById(itemEntity.getId())).thenReturn(Optional.of(itemEntity));
+        assertThrows(NotFoundException.class, () -> bookingService.create(12L, bookingInputDto));
     }
 
     @Test
