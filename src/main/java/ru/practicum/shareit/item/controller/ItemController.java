@@ -40,7 +40,7 @@ public class ItemController {
         return itemService.get(userId);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search") //sort -> поля берутчя из объекта.
     public List<ItemDto> search(@RequestHeader("X-Sharer-User-Id") Long userId, @RequestParam String text) {
         return itemService.search(userId, text);
     }
@@ -51,4 +51,5 @@ public class ItemController {
                                     @PathVariable Long itemId) {
         return itemService.createComment(comment, userId, itemId);
     }
+
 }

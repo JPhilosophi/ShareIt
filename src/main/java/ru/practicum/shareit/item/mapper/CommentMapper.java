@@ -26,7 +26,7 @@ public class CommentMapper {
         return commentDto;
     }
 
-    public static List<CommentDto> toCommentDto(List<CommentEntity> comments) {
+    public static List<CommentDto> toListCommentDto(List<CommentEntity> comments) {
         List<CommentDto> result = new ArrayList<>();
         for (CommentEntity comment : comments) {
             result.add(toCommentDto(comment));

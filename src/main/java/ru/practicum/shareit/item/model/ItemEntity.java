@@ -1,6 +1,6 @@
 package ru.practicum.shareit.item.model;
 
-import lombok.*;
+import lombok.Data;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -14,7 +14,6 @@ import java.util.Objects;
 public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(message = "Id can't be null")
     private Long id = 0L;
     @NotNull(message = "Name can't be null")
     @NotEmpty(message = "Name can't be empty")
@@ -27,11 +26,12 @@ public class ItemEntity {
     @Column(name = "owner_id")
     private Long ownerId;
     @Column(name = "request_id")
-    private Long request;
+    private Long requestId;
     @Transient
     private Long lastBookingId;
     @Transient
     private Long nextBookingId;
+
 
     @Override
     public boolean equals(Object o) {

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Data
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name = "bookings")

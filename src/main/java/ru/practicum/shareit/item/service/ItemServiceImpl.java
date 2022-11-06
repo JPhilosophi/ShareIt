@@ -5,16 +5,16 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ru.practicum.shareit.booking.model.BookingEntity;
-import ru.practicum.shareit.booking.repository.BookingRepository;
 import ru.practicum.shareit.booking.model.ShortBookingDto;
 import ru.practicum.shareit.booking.model.Status;
+import ru.practicum.shareit.booking.repository.BookingRepository;
 import ru.practicum.shareit.error.BadRequestException;
 import ru.practicum.shareit.error.NotFoundException;
-import ru.practicum.shareit.item.repository.CommentRepository;
-import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.item.mapper.CommentMapper;
 import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.item.model.*;
+import ru.practicum.shareit.item.repository.CommentRepository;
+import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.model.UserEntity;
 import ru.practicum.shareit.user.repository.UserRepository;
 
@@ -48,6 +48,7 @@ public class ItemServiceImpl implements ItemService {
                 .findById(userId)
                 .orElseThrow(() -> new NotFoundException("Can't found user with id " + userId));
         item.setOwner(userEntity.getId());
+        item.setRequestId(item.getRequestId());
         ItemEntity itemEntity = itemRepository.save(ItemMapper.mapToItemEntity(item));
         return ItemMapper.mapToItemDto(itemEntity);
     }
@@ -196,7 +197,7 @@ public class ItemServiceImpl implements ItemService {
         throw new BadRequestException("Only bookmakers can create comments");
     }
 
-    private BookingEntity getNextBooking(List<BookingEntity> bookings) {
+    public BookingEntity getNextBooking(List<BookingEntity> bookings) {
         LocalDateTime current = LocalDateTime.now();
 
         return bookings.stream()
@@ -205,7 +206,7 @@ public class ItemServiceImpl implements ItemService {
                 .findFirst().orElse(null);
     }
 
-    private BookingEntity getLastBooking(List<BookingEntity> bookings) {
+    public BookingEntity getLastBooking(List<BookingEntity> bookings) {
         LocalDateTime current = LocalDateTime.now();
 
         return bookings.stream()
