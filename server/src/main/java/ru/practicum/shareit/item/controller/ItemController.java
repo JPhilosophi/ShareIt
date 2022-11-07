@@ -7,7 +7,7 @@ import ru.practicum.shareit.item.model.ItemDto;
 import ru.practicum.shareit.item.service.ItemService;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @RestController
@@ -19,14 +19,14 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-
     @PostMapping
     public ItemDto create(@Valid @RequestBody ItemDto item, @RequestHeader("X-Sharer-User-Id") Long id) {
         return itemService.create(id, item);
     }
 
     @PatchMapping("/{id}")
-    public ItemDto update(@Valid @RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id, @RequestBody ItemDto item) {
+    public ItemDto update(@Valid @RequestHeader("X-Sharer-User-Id") Long userId,
+                          @PathVariable Long id, @RequestBody ItemDto item) {
         return itemService.update(userId, id, item);
     }
 
