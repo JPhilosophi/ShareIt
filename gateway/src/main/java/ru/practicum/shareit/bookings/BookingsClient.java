@@ -12,11 +12,11 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.util.Map;
 
-public class BookingClient_ extends BaseClient {
+public class BookingsClient extends BaseClient {
     private static final String API_PREFIX = "/bookings";
 
     @Autowired
-    public BookingClient_(@Value("${shareit-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public BookingsClient(@Value("${shareit-server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl + API_PREFIX))

@@ -12,9 +12,9 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(path = "/bookings")
 public class BookingController {
-    private final BookingClient_ bookingClient;
+    private final BookingsClient bookingClient;
 
-    public BookingController(BookingClient_ bookingClient) {
+    public BookingController(BookingsClient bookingClient) {
         this.bookingClient = bookingClient;
     }
 
