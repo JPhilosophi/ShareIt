@@ -15,7 +15,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class ItemController {
     private final ItemClient itemClient;
 
-    public ItemController( ItemClient itemClient) {
+    public ItemController(ItemClient itemClient) {
         this.itemClient = itemClient;
     }
 
