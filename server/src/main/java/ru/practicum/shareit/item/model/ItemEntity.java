@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "ru.practicum.shareit.items")
+@Table(name = "items")
 public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

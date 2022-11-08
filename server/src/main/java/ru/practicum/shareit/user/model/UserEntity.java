@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Entity
-@Table(name = "ru.practicum.shareit.users", schema = "public")
+@Table(name = "users", schema = "public")
 @Data
 public class UserEntity {
     @Id

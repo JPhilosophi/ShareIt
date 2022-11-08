@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "ru.practicum.ru.practicum.shareit.requests")
+@Table(name = "requests")
 public class ItemRequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,7 +10,7 @@ import java.util.Objects;
 @Data
 @RequiredArgsConstructor
 @Entity
-@Table(name = "ru.practicum.shareit.bookings")
+@Table(name = "bookings")
 public class BookingEntity implements Comparable<BookingEntity> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
