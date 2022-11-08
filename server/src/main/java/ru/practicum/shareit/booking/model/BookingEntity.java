@@ -1,6 +1,7 @@
 package ru.practicum.shareit.booking.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;

@@ -26,7 +26,7 @@ public class ItemRequestController {
 
     @GetMapping("/{requestId}")
     public ItemRequestOutputDto findRequest(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                        @PathVariable Long requestId) {
+                                            @PathVariable Long requestId) {
         return requestService.findItemRequestById(userId, requestId);
     }
 
@@ -37,7 +37,7 @@ public class ItemRequestController {
 
     @GetMapping("/all")
     public List<ItemRequestOutputDto> findPageOfThisSize(@RequestParam(defaultValue = "0") Integer from,
-                                                     @RequestParam(defaultValue = "10") Integer size,
+                                                         @RequestParam(defaultValue = "10") Integer size,
                                                          @RequestHeader("X-Sharer-User-Id") @NotNull Long userId) {
         return requestService.findPage(userId, from, size);
     }
