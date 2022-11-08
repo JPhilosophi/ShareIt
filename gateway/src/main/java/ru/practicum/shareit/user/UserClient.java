@@ -1,4 +1,4 @@
-package ru.practicum.shareit.users;
+package ru.practicum.shareit.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +11,7 @@ import ru.practicum.shareit.client.BaseClient;
 
 @Service
 public class UserClient extends BaseClient {
+
     private static final String API_PREFIX = "/users";
 
     @Autowired
@@ -23,23 +24,23 @@ public class UserClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> create(UserDto userDto) {
+    public ResponseEntity<Object> createUser(UserDto userDto) {
         return post("", userDto);
     }
 
-    public ResponseEntity<Object> getById(Long userId) {
+    public ResponseEntity<Object> getUserById(Long userId) {
         return get("/" + userId, userId);
     }
 
-    public ResponseEntity<Object> getAll() {
+    public ResponseEntity<Object> getUsersAll() {
         return get("");
     }
 
-    public ResponseEntity<Object> update(Long userId, UserDto userDto) {
-        return patch("/" + userId, userDto);
+    public ResponseEntity<Object> deleteUser(Long userId) {
+        return delete("/" + userId);
     }
 
-    public void deleteById(Long userId) {
-        delete("/" + userId);
+    public ResponseEntity<Object> updateUser(Long userId, UserDto userDto) {
+        return patch("/" + userId, userDto);
     }
 }

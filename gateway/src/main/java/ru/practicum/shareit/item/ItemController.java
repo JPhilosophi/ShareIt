@@ -1,4 +1,4 @@
-package ru.practicum.shareit.items;
+package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.items.dto.CommentDto;
-import ru.practicum.shareit.items.dto.ItemDto;
+import ru.practicum.shareit.item.dto.CommentDto;
+import ru.practicum.shareit.item.dto.ItemDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -33,14 +33,14 @@ public class ItemController {
     public ResponseEntity<Object> createItem(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
                                              @Valid @RequestBody ItemDto itemDto) {
         log.info("Creating item {}", itemDto);
-        return itemClient.create(userId, itemDto);
+        return itemClient.createItem(userId, itemDto);
     }
 
     @GetMapping("/{itemId}")
     public ResponseEntity<Object> getItemById(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
                                               @PathVariable Long itemId) {
         log.info("Get item, Id={}", itemId);
-        return itemClient.getById(userId, itemId);
+        return itemClient.getItemById(userId, itemId);
     }
 
     @PatchMapping("/{itemId}")
@@ -48,14 +48,14 @@ public class ItemController {
                                              @PathVariable Long itemId,
                                              @RequestBody ItemDto itemDto) {
         log.info("Update item, Id={}", itemId);
-        return itemClient.update(userId, itemId, itemDto);
+        return itemClient.updateItem(userId, itemId, itemDto);
     }
 
     @GetMapping("/search")
     public ResponseEntity<Object> searchItems(@RequestHeader("X-Sharer-User-Id") Long userId,
                                               @RequestParam @NotNull String text) {
 
-        return itemClient.search(userId, text);
+        return itemClient.searchItems(userId, text);
     }
 
     @GetMapping
@@ -64,7 +64,7 @@ public class ItemController {
                                                       defaultValue = "0") Integer from,
                                               @Positive @RequestParam(name = "size",
                                                       defaultValue = "10") Integer size) {
-        return itemClient.getAll(userId, from, size);
+        return itemClient.getAllItems(userId, from, size);
     }
 
 
