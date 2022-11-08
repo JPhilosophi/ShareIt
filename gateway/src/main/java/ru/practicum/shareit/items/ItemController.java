@@ -1,5 +1,9 @@
 package ru.practicum.shareit.items;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import ru.practicum.shareit.items.dto.CommentDto;
 import ru.practicum.shareit.items.dto.ItemDto;
 import org.springframework.http.ResponseEntity;
@@ -10,15 +14,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
-@RestController
-@RequestMapping("/items")
+@Controller
+@RequiredArgsConstructor
+@Slf4j
+@Validated
 public class ItemController {
     private final ItemClient itemClient;
-
-    public ItemController(ItemClient itemClient) {
-        this.itemClient = itemClient;
-    }
-
 
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody ItemDto item, @RequestHeader("X-Sharer-User-Id") Long id) {

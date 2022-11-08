@@ -1,20 +1,20 @@
 package ru.practicum.shareit.users;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Controller
+@RequiredArgsConstructor
 @Slf4j
-@RestController
-@RequestMapping(path = "/users")
+@Validated
 public class UserController {
     private final UserClient userClient;
-
-    public UserController(UserClient userClient) {
-        this.userClient = userClient;
-    }
 
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody UserDto user) {

@@ -75,6 +75,11 @@
 							<artifactId>checkstyle</artifactId>
 							<version>10.3</version>
 						</dependency>
+						<dependency>
+							<groupId>org.postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+							<version>42.5.0</version>
+						</dependency>
 					</dependencies>
 				</plugin>
 				<plugin>
