@@ -19,9 +19,9 @@ public class BookingEntityTest {
         bookingEntity2.setId(2L);
         bookingEntity1.setStart(LocalDateTime.now().plusDays(1));
         bookingEntity2.setStart(LocalDateTime.now().plusDays(2));
-        assertEquals(bookingEntity1.compareTo(bookingEntity2), 1);
+        assertEquals(1, bookingEntity1.compareTo(bookingEntity2));
         bookingEntity1.setStart(LocalDateTime.now());
         bookingEntity2.setStart(LocalDateTime.now());
-        assertEquals(bookingEntity1.compareTo(bookingEntity2), 1);
+        assertEquals(1, bookingEntity1.compareTo(bookingEntity2));
      }
 }

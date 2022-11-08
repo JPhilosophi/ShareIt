@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-;
-
 @RestController
 @RequestMapping(path = "/bookings")
 public class BookingController {

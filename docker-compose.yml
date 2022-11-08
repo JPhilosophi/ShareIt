@@ -8,14 +8,6 @@ services:
       - POSTGRES_DB=shareit
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=shareit
-  gateway:
-    build: ./gateway
-    ports:
-      - "8080:8080"
-    depends_on:
-      - server
-    environment:
-      - SHAREIT-SERVER_URL=http://server:9090
   server:
     build: ./server
     ports:
@@ -26,4 +18,11 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://shareit-db:5432/shareit
       - SPRING_DATASOURCE_USERNAME=shareit
       - SPRING_DATASOURCE_PASSWORD=password
-
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - server
+    environment:
+      - SHAREIT-SERVER_URL=http://server:9090

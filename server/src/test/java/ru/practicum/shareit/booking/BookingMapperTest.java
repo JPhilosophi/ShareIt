@@ -85,16 +85,16 @@ public class BookingMapperTest {
     @Test
     void toBooking() {
         BookingEntity testBooking = BookingMapper.toBooking(bookingInputDto, booker.getId());
-        assertEquals(bookingInputDto.getStart(), testBooking.getStart());
-        assertEquals(bookingInputDto.getEnd(), testBooking.getEnd());
+        assertEquals(testBooking.getStart(), bookingInputDto.getStart());
+        assertEquals(testBooking.getEnd(), bookingInputDto.getEnd());
     }
 
     @Test
     void toBookingDto() {
         BookingOutputDto testBookingOutputDto = BookingMapper.toBookingDto(booking);
-        assertEquals(booking.getId(), testBookingOutputDto.getId());
-        assertEquals(booking.getStart(), testBookingOutputDto.getStart());
-        assertEquals(booking.getEnd(), testBookingOutputDto.getEnd());
-        assertEquals(booking.getStatus(), testBookingOutputDto.getStatus());
+        assertEquals(testBookingOutputDto.getId(), booking.getId());
+        assertEquals(testBookingOutputDto.getStart(), booking.getStart());
+        assertEquals(testBookingOutputDto.getEnd(), booking.getEnd());
+        assertEquals(testBookingOutputDto.getStatus(), booking.getStatus());
     }
 }
