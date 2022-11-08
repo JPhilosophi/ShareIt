@@ -21,25 +21,25 @@ public class ItemRequestController {
     @PostMapping
     public ResponseEntity<Object> create(@RequestHeader("X-Sharer-User-Id") Long userId,
                                          @Valid @RequestBody ItemRequestInputDto itemInput) {
-        return requestClient.createRequest(userId, itemInput);
+        return requestClient.create(userId, itemInput);
     }
 
     @GetMapping("/{requestId}")
     public ResponseEntity<Object> findRequest(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
                                               @PathVariable Long requestId) {
-        return requestClient.findItemRequestById(userId, requestId);
+        return requestClient.getById(userId, requestId);
     }
 
     @GetMapping
     public ResponseEntity<Object> getRequestAll(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId) {
-        return requestClient.getRequestAll(userId);
+        return requestClient.getAll(userId);
     }
 
     @GetMapping("/all")
     public ResponseEntity<Object> getRequestsPage(@RequestParam(defaultValue = "0") Integer from,
                                                   @RequestParam(defaultValue = "10") Integer size,
                                                   @RequestHeader("X-Sharer-User-Id") @NotNull Long userId) {
-        return requestClient.getRequestsPage(userId, from, size);
+        return requestClient.getPage(userId, from, size);
     }
 
 }

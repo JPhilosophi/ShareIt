@@ -11,8 +11,6 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @Service
 public class UserClient extends BaseClient {
-
-
     private static final String API_PREFIX = "/users";
 
     @Autowired
@@ -41,7 +39,7 @@ public class UserClient extends BaseClient {
         return patch("/" + userId, userDto);
     }
 
-    public ResponseEntity<Object> deleteById(Long userId) {
-        return delete("/" + userId);
+    public void deleteById(Long userId) {
+        delete("/" + userId);
     }
 }

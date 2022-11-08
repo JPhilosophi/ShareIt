@@ -10,35 +10,43 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping(path = "/users")
 @RequiredArgsConstructor
 @Slf4j
 @Validated
 public class UserController {
+
     private final UserClient userClient;
 
     @PostMapping
-    public ResponseEntity<Object> create(@Valid @RequestBody UserDto user) {
-        log.info("Creating user {}", user);
-        return userClient.create(user);
+    public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto userDto) {
+        log.info("Creating user {}", userDto);
+        return userClient.create(userDto);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Object> update(@RequestBody UserDto user, @PathVariable Long id) {
-        return userClient.update(id, user);
+    @GetMapping("/{userId}")
+    public ResponseEntity<Object> getUserById(@PathVariable Long userId) {
+        log.info("Get user, Id={}", userId);
+        return userClient.getById(userId);
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAll() {
+    public ResponseEntity<Object> getUsersAll() {
+        log.info("Get users all");
         return userClient.getAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable Long id) {
-        return userClient.getById(id);
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable Long userId) {
+        log.info("Delete User, Id={}", userId);
+        userClient.deleteById(userId);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        userClient.deleteById(id);
+    @PatchMapping("/{userId}")
+    public ResponseEntity<Object> patchUser(@Valid @RequestBody UserDto userDto,
+                                            @PathVariable Long userId) {
+        log.info("Patching userId={} user {}", userId, userDto);
+        return userClient.update(userId, userDto);
     }
+
 }
