@@ -7,8 +7,9 @@ import ru.practicum.shareit.booking.converter.StringToEnumConverter;
 import ru.practicum.shareit.booking.model.State;
 import ru.practicum.shareit.error.BadRequestException;
 
-import static org.junit.Assert.assertThrows;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class StringToEnumConverterTest {

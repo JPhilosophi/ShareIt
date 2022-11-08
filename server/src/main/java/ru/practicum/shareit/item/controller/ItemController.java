@@ -7,7 +7,8 @@ import ru.practicum.shareit.item.model.ItemDto;
 import ru.practicum.shareit.item.service.ItemService;
 
 import javax.validation.Valid;
-import org.jetbrains.annotations.NotNull;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @RestController

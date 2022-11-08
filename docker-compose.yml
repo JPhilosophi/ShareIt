@@ -5,6 +5,7 @@ services:
     ports:
       - "5432:5432"
     environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shareit
       - POSTGRES_DB=shareit
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=shareit
@@ -16,8 +17,8 @@ services:
       - shareit-db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://shareit-db:5432/shareit
-      - SPRING_DATASOURCE_USERNAME=shareit
-      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
   gateway:
     build: ./gateway
     ports:
