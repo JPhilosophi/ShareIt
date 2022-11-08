@@ -1,19 +1,21 @@
 package ru.practicum.shareit.items;
 
-import ru.practicum.shareit.client.BaseClient;
-import ru.practicum.shareit.items.dto.CommentDto;
-import ru.practicum.shareit.items.dto.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import ru.practicum.shareit.client.BaseClient;
+import ru.practicum.shareit.items.dto.CommentDto;
+import ru.practicum.shareit.items.dto.ItemDto;
 
-import javax.validation.Valid;
 import java.util.Map;
 
+@Service
 public class ItemClient extends BaseClient {
+
     private static final String API_PREFIX = "/items";
 
     @Autowired
@@ -26,16 +28,27 @@ public class ItemClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> create(Long userId, ItemDto item) {
-        return post("", userId, item);
+    public ResponseEntity<Object> createComment(Long userId, Long itemId, CommentDto commentDto) {
+        return post("/" + itemId + "/comment", userId, commentDto);
     }
 
-    public ResponseEntity<Object> update(Long userId, Long itemId, ItemDto item) {
-        return patch("/" + itemId, userId, item);
+    public ResponseEntity<Object> create(Long userId, ItemDto itemDto) {
+        return post("", userId, itemDto);
     }
 
     public ResponseEntity<Object> getById(Long userId, Long itemId) {
         return get("/" + itemId, userId);
+    }
+
+
+    public ResponseEntity<Object> update(Long userId, Long itemId, ItemDto itemDto) {
+        return patch("/" + itemId, userId, itemDto);
+    }
+
+    public ResponseEntity<Object> search(Long userId, String text) {
+        Map<String, Object> parameters = Map.of("text", text);
+
+        return get("/search?text={text}", userId, parameters);
     }
 
     public ResponseEntity<Object> getAll(Long userId, Integer from, Integer size) {
@@ -45,15 +58,4 @@ public class ItemClient extends BaseClient {
         );
         return get("?from={from}&size={size}", userId, parameters);
     }
-
-    public ResponseEntity<Object> search(Long userId, String text) {
-        Map<String, Object> parameters = Map.of("text", text);
-
-        return get("/search?text={text}", userId, parameters);
-    }
-
-    public ResponseEntity<Object> createComment(@Valid CommentDto comment, Long userId, Long itemId) {
-        return post("/" + itemId + "/comment", userId, comment);
-    }
-
 }

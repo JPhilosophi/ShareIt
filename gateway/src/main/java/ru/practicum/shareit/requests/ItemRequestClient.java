@@ -1,5 +1,6 @@
 package ru.practicum.shareit.requests;
 
+import org.springframework.stereotype.Service;
 import ru.practicum.shareit.client.BaseClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import ru.practicum.shareit.requests.dto.ItemRequestInputDto;
 
 import java.util.Map;
 
+@Service
 public class ItemRequestClient extends BaseClient {
     private static final String API_PREFIX = "/requests";
 

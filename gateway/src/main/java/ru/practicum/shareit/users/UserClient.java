@@ -1,5 +1,6 @@
 package ru.practicum.shareit.users;
 
+import org.springframework.stereotype.Service;
 import ru.practicum.shareit.client.BaseClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+@Service
 public class UserClient extends BaseClient {
 
 
