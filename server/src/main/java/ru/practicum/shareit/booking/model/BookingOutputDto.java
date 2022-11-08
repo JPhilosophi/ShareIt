@@ -1,7 +1,7 @@
 package ru.practicum.shareit.booking.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.Data;
 import ru.practicum.shareit.item.model.ShortItemDto;
 import ru.practicum.shareit.user.model.ShortUserDto;
 
