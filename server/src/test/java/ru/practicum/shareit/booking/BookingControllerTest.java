@@ -96,11 +96,11 @@ class BookingControllerTest {
     void update() throws Exception {
         when(bookingService.update(user.getId(), 1L, true)).thenReturn(bookingOutputDto);
         mvc.perform(patch("/bookings/{bookingId}", 1L)
-                .header("X-Sharer-User-Id", user.getId())
+                        .header("X-Sharer-User-Id", user.getId())
                         .param("approved", String.valueOf(true))
-                .characterEncoding(StandardCharsets.UTF_8)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }
@@ -109,7 +109,7 @@ class BookingControllerTest {
     void getById() throws Exception {
         when(bookingService.getById(1L, 1L)).thenReturn(bookingOutputDto);
         mvc.perform(get("/bookings/{bookingId}", 1L)
-                .header("X-Sharer-User-Id", user.getId())
+                        .header("X-Sharer-User-Id", user.getId())
                         .characterEncoding(StandardCharsets.UTF_8)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -121,10 +121,10 @@ class BookingControllerTest {
     void getAllByBooker() throws Exception {
         when(bookingService.getAllByBooker(user.getId(), null, 0, 10)).thenReturn(List.of(bookingOutputDto));
         mvc.perform(get("/bookings/")
-                .header("X-Sharer-User-Id", user.getId())
-                .characterEncoding(StandardCharsets.UTF_8)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .header("X-Sharer-User-Id", user.getId())
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

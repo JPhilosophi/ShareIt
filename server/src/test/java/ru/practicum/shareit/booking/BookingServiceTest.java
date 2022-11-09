@@ -28,21 +28,18 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceTest {
     @Mock
     BookingRepository bookingRepository;
+    @InjectMocks
+    BookingServiceImpl bookingService;
     @Mock
     private UserRepository userRepository;
     @Mock
     private ItemRepository itemRepository;
-
-    @InjectMocks
-    BookingServiceImpl bookingService;
-
     private UserEntity booker;
     private UserEntity owner;
     private BookingEntity bookingEntity;

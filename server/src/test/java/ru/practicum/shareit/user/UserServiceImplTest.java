@@ -27,7 +27,7 @@ class UserServiceImplTest {
 
     @InjectMocks
     private UserServiceImpl userService;
-    private  UserEntity userEntity;
+    private UserEntity userEntity;
     private UserDto user;
     private UserDto userDto;
     private UserDto userWithoutName;

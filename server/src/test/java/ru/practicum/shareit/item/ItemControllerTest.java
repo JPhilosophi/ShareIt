@@ -31,19 +31,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class ItemControllerTest {
-    @Mock
-    private ItemService itemService;
-
-    @InjectMocks
-    private ItemController controller;
-
-    private MockMvc mvc;
-    private ItemDto itemDto;
-    private CommentDto commentDto;
-
     private final ObjectMapper mapper = JsonMapper.builder()
             .addModule(new JavaTimeModule())
             .build();
+    @Mock
+    private ItemService itemService;
+    @InjectMocks
+    private ItemController controller;
+    private MockMvc mvc;
+    private ItemDto itemDto;
+    private CommentDto commentDto;
 
     @BeforeEach
     void setUp() {
@@ -88,7 +85,7 @@ class ItemControllerTest {
 
     @Test
     void createComment() throws Exception {
-        when(itemService.createComment(any(), anyLong(),anyLong()))
+        when(itemService.createComment(any(), anyLong(), anyLong()))
                 .thenReturn(commentDto);
 
         mvc.perform(post("/items/{itemId}/comment", 1L)

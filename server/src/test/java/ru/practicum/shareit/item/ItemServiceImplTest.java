@@ -210,7 +210,7 @@ class ItemServiceImplTest {
         when(itemRepository.findById(item.getId())).thenReturn(Optional.of(item));
         when(bookingRepository.findById(item.getId())).thenReturn(Optional.of(bookingEntity));
         when(commentRepository.save(any(CommentEntity.class))).thenReturn(comment);
-        var result = itemService.createComment(commentInto, author.getId(),item.getId());
+        var result = itemService.createComment(commentInto, author.getId(), item.getId());
         verify(commentRepository, times(1)).save(any(CommentEntity.class));
         assertNotNull(result);
         assertEquals(result.getId(), comment.getId());

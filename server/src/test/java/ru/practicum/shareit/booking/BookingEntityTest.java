@@ -23,5 +23,5 @@ public class BookingEntityTest {
         bookingEntity1.setStart(LocalDateTime.now());
         bookingEntity2.setStart(LocalDateTime.now());
         assertEquals(bookingEntity1.compareTo(bookingEntity2), 1);
-     }
+    }
 }

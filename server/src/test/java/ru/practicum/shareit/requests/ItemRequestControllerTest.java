@@ -31,12 +31,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class ItemRequestControllerTest {
+    private final ObjectMapper mapper = new ObjectMapper();
     @Mock
     private ItemRequestService requestService;
     @InjectMocks
     private ItemRequestController controller;
-
-    private final ObjectMapper mapper = new ObjectMapper();
     private MockMvc mvc;
     private LocalDateTime time;
     private ItemRequestOutputDto requestOutputDto;

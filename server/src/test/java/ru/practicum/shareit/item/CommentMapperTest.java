@@ -47,11 +47,11 @@ public class CommentMapperTest {
         commentEntity.setItem(itemEntity);
         commentEntity.setAuthor(author);
 
-       commentDto = new CommentDto();
-       commentDto.setId(1L);
-       commentDto.setAuthorName(author.getName());
-       commentDto.setCreated(LocalDateTime.now());
-       commentDto.setText("text");
+        commentDto = new CommentDto();
+        commentDto.setId(1L);
+        commentDto.setAuthorName(author.getName());
+        commentDto.setCreated(LocalDateTime.now());
+        commentDto.setText("text");
     }
 
     @Test
