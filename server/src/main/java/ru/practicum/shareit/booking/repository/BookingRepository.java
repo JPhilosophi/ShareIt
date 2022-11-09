@@ -2,6 +2,7 @@ package ru.practicum.shareit.booking.repository;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import ru.practicum.shareit.booking.model.BookingEntity;
 import ru.practicum.shareit.booking.model.Status;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
+public interface BookingRepository extends JpaRepository<BookingEntity, Long>, JpaSpecificationExecutor<BookingEntity> {
 
     @Query("select b from BookingEntity b where b.bookerId = ?1")
     List<BookingEntity> findAllByBookerId(Long booker, Pageable pageable);
