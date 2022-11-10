@@ -24,7 +24,7 @@ services:
   db:
     image: postgres
     ports:
-      - "6541:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_DB=shareit
       - POSTGRES_USER=shareit
