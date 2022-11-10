@@ -7,7 +7,6 @@ import ru.practicum.shareit.booking.model.BookingOutputDto;
 import ru.practicum.shareit.booking.model.State;
 import ru.practicum.shareit.booking.service.BookingService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
