@@ -17,9 +17,9 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shareit
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:shareit
       - SPRING_DATASOURCE_USERNAME=shareit
-      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_DATASOURCE_PASSWORD=shareit
 
   db:
     image: postgres
@@ -29,3 +29,12 @@ services:
       - POSTGRES_DB=shareit
       - POSTGRES_USER=shareit
       - POSTGRES_PASSWORD=password
+
+  db2:
+    image: oscarfonts/h2
+    ports:
+      - "6354:6454"
+    environment:
+      - H2_DB=shareit
+      - H2_USER=shareit
+      - H2_PASSWORD=shareit

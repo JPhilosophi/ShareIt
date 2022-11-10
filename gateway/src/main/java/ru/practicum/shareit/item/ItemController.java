@@ -11,61 +11,49 @@ import ru.practicum.shareit.item.dto.ItemDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/items")
-@RequiredArgsConstructor
 @Slf4j
 @Validated
 public class ItemController {
     private final ItemClient itemClient;
 
-    @PostMapping("/{itemId}/comment")
-    public ResponseEntity<Object> createComment(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                                @PathVariable Long itemId,
-                                                @Valid @RequestBody CommentDto commentDto) {
-        return itemClient.createComment(userId, itemId, commentDto);
+    public ItemController(ItemClient itemClient) {
+        this.itemClient = itemClient;
     }
+
 
     @PostMapping
-    public ResponseEntity<Object> createItem(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                             @Valid @RequestBody ItemDto itemDto) {
-        log.info("Creating item {}", itemDto);
-        return itemClient.createItem(userId, itemDto);
+    public ResponseEntity<Object> create(@Valid @RequestBody ItemDto item, @RequestHeader("X-Sharer-User-Id") Long id) {
+        return itemClient.create(id, item);
     }
 
-    @GetMapping("/{itemId}")
-    public ResponseEntity<Object> getItemById(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                              @PathVariable Long itemId) {
-        log.info("Get item, Id={}", itemId);
-        return itemClient.getItemById(userId, itemId);
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> update(@Valid @RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id, @RequestBody ItemDto item) {
+        return itemClient.update(userId, id, item);
     }
 
-    @PatchMapping("/{itemId}")
-    public ResponseEntity<Object> updateItem(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                             @PathVariable Long itemId,
-                                             @RequestBody ItemDto itemDto) {
-        log.info("Update item, Id={}", itemId);
-        return itemClient.updateItem(userId, itemId, itemDto);
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getByItemId(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long id) {
+        return itemClient.getByItemId(userId, id);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<Object> searchItems(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                              @RequestParam @NotNull String text) {
-
-        return itemClient.searchItems(userId, text);
+    @GetMapping()
+    public ResponseEntity<Object> getAllItems(@RequestHeader("X-Sharer-User-Id") Long userId) {
+        return itemClient.getAllItems(userId);
     }
 
-    @GetMapping
-    public ResponseEntity<Object> getAllItems(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                              @PositiveOrZero @RequestParam(name = "from",
-                                                      defaultValue = "0") Integer from,
-                                              @Positive @RequestParam(name = "size",
-                                                      defaultValue = "10") Integer size) {
-        return itemClient.getAllItems(userId, from, size);
+    @GetMapping("/search") //sort -> поля берутчя из объекта.
+    public ResponseEntity<Object> search(@RequestHeader("X-Sharer-User-Id") Long userId, @RequestParam String text) {
+        return itemClient.search(userId, text);
     }
 
-
+    @PostMapping("/{itemId}/comment")
+    public ResponseEntity<Object> createComment(@RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+                                                @PathVariable @NotNull Long itemId,
+                                                @Valid @RequestBody CommentDto comment) {
+        return itemClient.createComment(userId, itemId, comment);
+    }
 }
